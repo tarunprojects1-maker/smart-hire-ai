@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>
+        SmartHire AI
+    </title>
+
+    <!-- CSS -->
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- FONT AWESOME -->
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- MAIN LAYOUT -->
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <!-- LOGO -->
+
+        <div class="sidebar-top">
+
+            <div class="logo">
+
+                <div class="logo-box">
+
+                    AI
+
+                </div>
+
+                <div class="logo-text">
+
+                    <h2>
+                        SmartHire
+                    </h2>
+
+                    <p>
+                        AI Career Platform
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- NAVIGATION -->
+
+        <div class="sidebar-menu">
+
+            <!-- DASHBOARD -->
+
+            <a
+            href="/dashboard"
+            class="{% if request.path == '/dashboard' %}active{% endif %}">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+            <!-- CAREER -->
+
+            <a
+            href="/career"
+            class="{% if request.path == '/career' %}active{% endif %}">
+
+                <i class="fa-solid fa-robot"></i>
+
+                <span>
+                    Career Coach
+                </span>
+
+            </a>
+
+            <!-- ATS -->
+
+            <a
+            href="/ats"
+            class="{% if request.path == '/ats' %}active{% endif %}">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                <span>
+                    ATS Analyzer
+                </span>
+
+            </a>
+
+            <!-- HISTORY -->
+
+            <a
+            href="/history"
+            class="{% if request.path == '/history' %}active{% endif %}">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                <span>
+                    History
+                </span>
+
+            </a>
+
+            <!-- SKILLS -->
+
+            <a
+            href="/skills"
+            class="{% if request.path == '/skills' %}active{% endif %}">
+
+                <i class="fa-solid fa-brain"></i>
+
+                <span>
+                    Skills
+                </span>
+
+            </a>
+
+            <!-- ANALYSIS -->
+
+            <a
+            href="/analysis"
+            class="{% if request.path == '/analysis' %}active{% endif %}">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                <span>
+                    Analysis
+                </span>
+
+            </a>
+
+        </div>
+
+        <!-- BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+            <!-- USER -->
+
+            <div class="user-profile">
+
+                <div class="user-avatar">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+                <div class="user-info">
+
+                    <h4>
+                        {{ username }}
+                    </h4>
+
+                    <p>
+                        SmartHire User
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- LOGOUT -->
+
+            <a
+            href="/logout"
+            class="logout-btn">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1 class="topbar-title">
+
+                    SmartHire AI Platform
+
+                </h1>
+
+                <p class="topbar-subtitle">
+
+                    AI Powered Career Intelligence System
+
+                </p>
+
+            </div>
+
+            <div class="topbar-actions">
+
+                <div class="status-badge">
+
+                    <i class="fa-solid fa-circle"></i>
+
+                    AI Active
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- PAGE CONTENT -->
+
+        <div class="page-content">
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- Developer Button -->
+<div id="developerBtn">
+    👤
+</div>
+
+<!-- Developer Panel -->
+<div id="developerPanel">
+
+    <span id="closeDeveloper">&times;</span>
+
+    <h3>About Developer</h3>
+
+    <p>
+        Hello, I'm <strong>Tarunteja Patro</strong>, a B.Tech student at
+        <strong>Centurion University of Technology and Management</strong>.
+    </p>
+
+    <p>
+        I am passionate about Artificial Intelligence, Software Development,
+        Career Technology, and Automation Systems.
+    </p>
+
+    <p>
+        SmartHire AI was developed to help students, freshers, and job seekers
+        improve their resumes, understand ATS requirements, and increase their
+        chances of getting shortlisted by recruiters.
+    </p>
+
+    <p>
+    📧
+    <a href="mailto:taruntejapatro@gmail.com?subject=SmartHire AI Inquiry">
+        taruntejapatro@gmail.com
+    </a>
+</p>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    const developerBtn =
+    document.getElementById("developerBtn");
+
+    const developerPanel =
+    document.getElementById("developerPanel");
+
+    const closeDeveloper =
+    document.getElementById("closeDeveloper");
+
+    developerBtn.onclick = function(){
+        developerPanel.style.display = "block";
+    };
+
+    closeDeveloper.onclick = function(){
+        developerPanel.style.display = "none";
+    };
+
+});
+</script>
+
+<footer class="copyright-footer">
+    © 2026 SmartHire AI. Developed by Tarunteja Patro. All Rights Reserved.
+</footer>
+
+</body>
+</html>

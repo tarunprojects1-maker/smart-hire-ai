@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>SmartHire AI - Signup</title>
+
+    <!-- GOOGLE FONT -->
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+
+        body{
+
+            margin:0;
+
+            background:
+            linear-gradient(
+                135deg,
+                #f5efe7,
+                #e8ddd1
+            );
+
+            min-height:100vh;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            overflow:hidden;
+        }
+
+        .auth-container{
+
+            width:100%;
+            max-width:1600px;
+
+            height:92vh;
+
+            background:white;
+
+            border-radius:42px;
+
+            overflow:hidden;
+
+            display:grid;
+
+            grid-template-columns:1fr 1.2fr;
+
+            box-shadow:
+            0 30px 80px rgba(0,0,0,0.12);
+        }
+
+        /* LEFT */
+
+        .auth-left{
+
+            padding:90px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            background:#fcfaf8;
+        }
+
+        .auth-card{
+
+            width:100%;
+            max-width:520px;
+        }
+
+        .auth-title{
+
+            font-size:58px;
+
+            font-weight:700;
+
+            margin-bottom:16px;
+
+            color:#1d1d1d;
+        }
+
+        .auth-subtitle{
+
+            color:#74665d;
+
+            font-size:18px;
+
+            line-height:1.8;
+
+            margin-bottom:50px;
+        }
+
+        .input-group{
+
+            margin-bottom:28px;
+        }
+
+        .input-label{
+
+            display:block;
+
+            margin-bottom:14px;
+
+            color:#7b5e57;
+
+            font-size:16px;
+            font-weight:600;
+        }
+
+        .auth-input{
+
+            width:100%;
+
+            padding:24px 26px;
+
+            border-radius:24px;
+
+            border:1px solid #eadfd5;
+
+            background:white;
+
+            font-size:17px;
+
+            outline:none;
+
+            transition:0.3s ease;
+        }
+
+        .auth-input:focus{
+
+            border-color:#7b5e57;
+
+            box-shadow:
+            0 0 0 5px rgba(123,94,87,0.1);
+        }
+
+        .signup-btn{
+
+            width:100%;
+
+            border:none;
+
+            padding:24px;
+
+            border-radius:24px;
+
+            background:
+            linear-gradient(
+                135deg,
+                #7b5e57,
+                #5f453f
+            );
+
+            color:white;
+
+            font-size:18px;
+            font-weight:600;
+
+            cursor:pointer;
+
+            transition:0.35s ease;
+
+            margin-top:10px;
+
+            box-shadow:
+            0 14px 30px rgba(123,94,87,0.18);
+        }
+
+        .signup-btn:hover{
+
+            transform:translateY(-3px);
+        }
+
+        .login-link{
+
+            margin-top:34px;
+
+            text-align:center;
+
+            font-size:16px;
+
+            color:#74665d;
+        }
+
+        .login-link a{
+
+            color:#7b5e57;
+
+            font-weight:600;
+
+            text-decoration:none;
+        }
+
+        .login-link a:hover{
+
+            text-decoration:underline;
+        }
+
+        /* RIGHT */
+
+        .auth-right{
+
+            background:
+            linear-gradient(
+                135deg,
+                #7b5e57,
+                #4e3934
+            );
+
+            color:white;
+
+            padding:90px;
+
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+
+            position:relative;
+
+            overflow:hidden;
+        }
+
+        .auth-right::before{
+
+            content:'';
+
+            position:absolute;
+
+            width:500px;
+            height:500px;
+
+            background:
+            rgba(255,255,255,0.05);
+
+            border-radius:50%;
+
+            bottom:-140px;
+            left:-140px;
+        }
+
+        .brand-logo{
+
+            width:90px;
+            height:90px;
+
+            border-radius:28px;
+
+            background:white;
+
+            color:#7b5e57;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            font-size:34px;
+            font-weight:700;
+
+            margin-bottom:40px;
+        }
+
+        .auth-right h1{
+
+            font-size:82px;
+
+            line-height:1;
+
+            margin-bottom:30px;
+        }
+
+        .auth-right p{
+
+            font-size:22px;
+
+            line-height:2;
+
+            color:rgba(255,255,255,0.85);
+
+            max-width:700px;
+        }
+
+        .feature-list{
+
+            margin-top:60px;
+
+            display:flex;
+            flex-direction:column;
+
+            gap:22px;
+        }
+
+        .feature-item{
+
+            display:flex;
+            align-items:center;
+
+            gap:18px;
+
+            font-size:18px;
+        }
+
+        .feature-icon{
+
+            width:54px;
+            height:54px;
+
+            border-radius:18px;
+
+            background:
+            rgba(255,255,255,0.12);
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1200px){
+
+            .auth-container{
+
+                grid-template-columns:1fr;
+            }
+
+            .auth-right{
+
+                display:none;
+            }
+        }
+
+        @media(max-width:768px){
+
+            .auth-left{
+
+                padding:40px;
+            }
+
+            .auth-title{
+
+                font-size:42px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <!-- LEFT -->
+
+        <div class="auth-left">
+
+            <div class="auth-card">
+
+                <h2 class="auth-title">
+                    Create Account
+                </h2>
+
+                <p class="auth-subtitle">
+
+                    Join SmartHire AI and unlock
+                    AI-powered career growth,
+                    ATS optimization and interview intelligence.
+
+                </p>
+
+                <form method="POST">
+
+                    <!-- USERNAME -->
+
+                    <div class="input-group">
+
+                        <label class="input-label">
+
+                            Username
+
+                        </label>
+
+                        <input
+                        type="text"
+                        name="username"
+                        class="auth-input"
+                        placeholder="Enter your username"
+                        required>
+
+                    </div>
+
+                    <!-- EMAIL -->
+
+                    <div class="input-group">
+
+                        <label class="input-label">
+
+                            Email Address
+
+                        </label>
+
+                        <input
+                        type="email"
+                        name="email"
+                        class="auth-input"
+                        placeholder="Enter your email"
+                        required>
+
+                    </div>
+
+                    <!-- PASSWORD -->
+
+                    <div class="input-group">
+
+                        <label class="input-label">
+
+                            Password
+
+                        </label>
+
+                        <input
+                        type="password"
+                        name="password"
+                        class="auth-input"
+                        placeholder="Create password"
+                        required>
+
+                    </div>
+
+                    <!-- BUTTON -->
+
+                    <button
+                    type="submit"
+                    class="signup-btn">
+
+                        Create SmartHire Account
+
+                    </button>
+
+                </form>
+
+                <!-- LOGIN -->
+
+                <div class="login-link">
+
+                    Already have an account?
+
+                    <a href="/login">
+
+                        Login Here
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="auth-right">
+
+            <div>
+
+                <div class="brand-logo">
+                    AI
+                </div>
+
+                <h1>
+                    SmartHire AI
+                </h1>
+
+                <p>
+
+                    Build your future using advanced AI tools
+                    for resume analysis, interview preparation,
+                    career intelligence and smart hiring insights.
+
+                </p>
+
+                <div class="feature-list">
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+
+                            <i class="fa-solid fa-chart-line"></i>
+
+                        </div>
+
+                        AI Career Intelligence
+
+                    </div>
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+
+                            <i class="fa-solid fa-file-lines"></i>
+
+                        </div>
+
+                        ATS Resume Optimization
+
+                    </div>
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+
+                            <i class="fa-solid fa-robot"></i>
+
+                        </div>
+
+                        Smart AI Career Coach
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

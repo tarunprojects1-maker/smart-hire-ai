@@ -1,0 +1,358 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="hero-section">
+
+    <div>
+
+        <h1>
+            Analysis History
+        </h1>
+
+        <p class="subtitle">
+
+            Track ATS resume performance,
+            recruiter matching and AI analysis history
+            across all uploaded resumes.
+
+        </p>
+
+    </div>
+
+    <div class="hero-badge">
+
+        Smart Tracking
+
+    </div>
+
+</section>
+
+<!-- STATS -->
+
+<section class="analytics-grid">
+
+    <!-- TOTAL -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    Total Reports
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    {{ history|length }}
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div class="progress-fill progress-one"></div>
+
+        </div>
+
+    </div>
+
+    <!-- ATS -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    Resume Tracking
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    AI
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div class="progress-fill progress-two"></div>
+
+        </div>
+
+    </div>
+
+    <!-- HISTORY -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    Activity Status
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    Active
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div class="progress-fill progress-three"></div>
+
+        </div>
+
+    </div>
+
+    <!-- ATS -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    ATS Engine
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    Live
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-bolt"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div class="progress-fill progress-four"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- HISTORY SECTION -->
+
+<section class="card history-card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Resume Analysis Records
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                View previous ATS reports,
+                recruiter matching and resume performance.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-database"></i>
+
+        </div>
+
+    </div>
+
+    {% if history %}
+
+    <div class="modern-history-grid">
+
+        {% for item in history %}
+
+        <!-- HISTORY ITEM -->
+
+        <div class="history-item-card">
+
+            <!-- TOP -->
+
+            <div class="history-top">
+
+                <div class="history-file-icon">
+
+                    <i class="fa-solid fa-file-pdf"></i>
+
+                </div>
+
+                <div class="history-status">
+
+                    ATS Live
+                </div>
+
+            </div>
+
+            <!-- CONTENT -->
+
+            <div class="history-content">
+
+                <h3>
+
+                    {{ item.filename }}
+
+                </h3>
+
+                <div class="history-info">
+
+                    <!-- ATS -->
+
+                    <div class="history-metric">
+
+                        <span>
+                            ATS Score
+                        </span>
+
+                        <strong>
+
+                            {{ item.ats_score }}%
+
+                        </strong>
+
+                    </div>
+
+                    <!-- MATCH -->
+
+                    <div class="history-metric">
+
+                        <span>
+                            Match %
+                        </span>
+
+                        <strong>
+
+                            {{ item.match_percentage }}%
+
+                        </strong>
+
+                    </div>
+
+                    <!-- DOMAIN -->
+
+                    <div class="history-metric">
+
+                        <span>
+                            Domain
+                        </span>
+
+                        <strong>
+
+                            {{ item.domain_match }}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <!-- EMPTY -->
+
+    <div class="empty-state">
+
+        <div class="empty-icon">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+        </div>
+
+        <h3>
+
+            No Analysis History Yet
+
+        </h3>
+
+        <p>
+
+            Upload resumes in ATS Analyzer
+            to start building your AI analysis history.
+
+        </p>
+
+        <a href="/ats">
+
+            <button>
+
+                Open ATS Analyzer
+
+            </button>
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

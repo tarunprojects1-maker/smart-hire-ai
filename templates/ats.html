@@ -1,0 +1,955 @@
+<!-- jinja2 -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="hero-section">
+
+    <div>
+
+        <h1>
+            ATS Resume Analyzer
+        </h1>
+
+        <p class="subtitle">
+
+            Upload your resume and compare it
+            with AI-powered ATS intelligence,
+            recruiter matching and smart career insights.
+
+        </p>
+
+    </div>
+
+    <div class="hero-badge">
+        Smart ATS AI
+    </div>
+
+</section>
+
+<!-- ATS WORKSPACE -->
+
+<section class="card ats-workspace">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                AI Resume Upload Workspace
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                Drag & drop your resume or upload manually.
+                SmartHire AI analyzes recruiter compatibility,
+                ATS performance and resume quality.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+        </div>
+
+    </div>
+
+<!-- FORM -->
+
+<form
+action="/upload"
+method="POST"
+enctype="multipart/form-data"
+id="uploadForm">
+
+    <!-- DROPZONE -->
+
+    <div
+    class="dropzone"
+    id="dropzone">
+
+        <input
+        type="file"
+        id="resume-upload"
+        name="resume"
+        accept=".pdf"
+        hidden
+        required>
+
+        <div
+        class="dropzone-icon"
+        id="dropzone-icon">
+
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+
+        </div>
+
+        <h3 id="upload-title">
+
+            Drag & Drop Resume Here
+
+        </h3>
+
+        <p id="upload-subtitle">
+
+            Upload PDF resume for AI ATS analysis
+
+        </p>
+
+        <div
+        class="file-preview"
+        id="file-preview">
+
+            No file selected
+
+        </div>
+
+        <button
+        type="button"
+        class="upload-button"
+        id="choose-btn">
+
+            Choose Resume
+
+        </button>
+
+    </div>
+
+    <!-- JOB DESCRIPTION -->
+
+    <div class="jd-section">
+
+        <label class="label-title">
+
+            Job Description
+
+        </label>
+
+        <textarea
+        name="job_description"
+        placeholder="Paste complete job description here..."
+        required>{{ job_description }}</textarea>
+
+    </div>
+
+    <!-- ACTIONS -->
+
+    <div class="workspace-actions">
+
+        <button type="submit">
+
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+            Analyze Resume
+
+        </button>
+
+    </div>
+
+</form>
+
+<script>
+
+const dropzone =
+document.getElementById("dropzone");
+
+const uploadInput =
+document.getElementById("resume-upload");
+
+const chooseBtn =
+document.getElementById("choose-btn");
+
+const filePreview =
+document.getElementById("file-preview");
+
+const uploadTitle =
+document.getElementById("upload-title");
+
+const uploadSubtitle =
+document.getElementById("upload-subtitle");
+
+const dropzoneIcon =
+document.getElementById("dropzone-icon");
+
+/* OPEN FILE PICKER */
+
+chooseBtn.addEventListener("click", () => {
+
+    uploadInput.click();
+
+});
+
+/* CLICK DROPZONE */
+
+dropzone.addEventListener("click", (e) => {
+
+    if(e.target.tagName !== "BUTTON"){
+
+        uploadInput.click();
+
+    }
+
+});
+
+/* NORMAL FILE SELECT */
+
+uploadInput.addEventListener("change", () => {
+
+    if(uploadInput.files.length > 0){
+
+        updateUI(uploadInput.files[0]);
+
+    }
+
+});
+
+/* DRAG OVER */
+
+dropzone.addEventListener("dragover", (e) => {
+
+    e.preventDefault();
+
+    dropzone.classList.add("dragover");
+
+});
+
+/* DRAG LEAVE */
+
+dropzone.addEventListener("dragleave", () => {
+
+    dropzone.classList.remove("dragover");
+
+});
+
+/* DROP FILE */
+
+dropzone.addEventListener("drop", (e) => {
+
+    e.preventDefault();
+
+    dropzone.classList.remove("dragover");
+
+    const files = e.dataTransfer.files;
+
+    if(files.length > 0){
+
+        uploadInput.files = files;
+
+        updateUI(files[0]);
+
+    }
+
+});
+
+/* UPDATE UI */
+
+function updateUI(file){
+
+    filePreview.innerHTML =
+    `<i class="fa-solid fa-file-pdf"></i> ${file.name}`;
+
+    filePreview.style.display = "flex";
+
+    uploadTitle.innerHTML =
+    "Resume Uploaded Successfully";
+
+    uploadSubtitle.innerHTML =
+    "Your file is ready for ATS AI analysis";
+
+    dropzoneIcon.innerHTML =
+    `<i class="fa-solid fa-circle-check"></i>`;
+
+    dropzoneIcon.style.background =
+    "linear-gradient(135deg,#64856d,#4f6957)";
+}
+
+</script>
+
+
+<!-- RESULTS -->
+
+{% if uploaded %}
+
+<!-- ANALYSIS STATUS -->
+
+<section class="card analysis-status">
+
+    <div class="status-left">
+
+        <div class="status-icon">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+        <div>
+
+            <h2>
+                Resume Analysis Complete
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                AI analysis generated successfully
+                using SmartHire ATS intelligence engine.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="status-file">
+
+        {{ filename }}
+
+    </div>
+
+</section>
+
+<!-- SCORE DASHBOARD -->
+
+<section class="dashboard-main">
+
+    <!-- ATS -->
+
+    <div class="score-card">
+
+        <h3>
+            ATS Score
+        </h3>
+
+        <div class="circle-wrap">
+
+            <div
+            class="circle"
+            style="--score: {{ ats_score }};">
+
+                <div class="circle-value">
+
+                    {{ ats_score }}%
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MATCH -->
+
+    <div class="score-card">
+
+        <h3>
+            Match Percentage
+        </h3>
+
+        <div class="circle-wrap">
+
+            <div
+            class="circle"
+            style="--score: {{ match_percentage }};">
+
+                <div class="circle-value">
+
+                    {{ match_percentage }}%
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- DOMAIN -->
+
+    <div class="score-card">
+
+        <h3>
+            Domain Match
+        </h3>
+
+        <div class="domain-value">
+
+            {{ domain_match }}
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- AI INSIGHTS -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                AI Resume Intelligence
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                SmartHire AI generated
+                recruiter-focused ATS insights
+                and resume recommendations.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-brain"></i>
+
+        </div>
+
+    </div>
+
+    <div class="insights-grid">
+
+        <!-- TOP SKILLS -->
+
+        <div class="insight-box">
+
+            <div class="insight-icon">
+
+                <i class="fa-solid fa-star"></i>
+
+            </div>
+
+            <h3>
+                Top Skills
+            </h3>
+
+            <p>
+
+                {{ top_skills }}
+
+            </p>
+
+        </div>
+
+        <!-- MISSING SKILLS -->
+
+        <div class="insight-box">
+
+            <div class="insight-icon">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+            <h3>
+                Missing Skills
+            </h3>
+
+            <p>
+
+                {{ missing_skills }}
+
+            </p>
+
+        </div>
+
+        <!-- SUGGESTIONS -->
+
+        <div class="insight-box">
+
+            <div class="insight-icon">
+
+                <i class="fa-solid fa-lightbulb"></i>
+
+            </div>
+
+            <h3>
+                AI Suggestions
+            </h3>
+
+            <p>
+
+                {{ suggestions }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- RAW ANALYSIS -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Detailed AI ATS Analysis
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                Complete recruiter-focused
+                ATS analysis generated
+                by SmartHire AI engine.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+        </div>
+
+    </div>
+
+<div class="ai-box">
+
+    <pre>{{ ai_result }}</pre>
+
+    <br><br>
+
+    <h3>Fake Job Detection</h3>
+    <p>{{ fake_job_detection }}</p>
+
+    <h3>Job Authenticity Score</h3>
+    <p>{{ job_authenticity_score }}</p>
+
+    <h3>Scam Indicators</h3>
+    <p>{{ scam_indicators }}</p>
+
+</div>
+
+</section>
+
+<!-- RESUME -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Extracted Resume Content
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                AI extracted and parsed your resume successfully.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-file"></i>
+
+        </div>
+
+    </div>
+
+    <div class="resume-box">
+
+        <pre>{{ resume_text }}</pre>
+
+    </div>
+
+</section>
+<!-- AI RESUME RECONSTRUCTION -->
+
+<section class="card reconstruction-card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                AI Resume Reconstruction
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                SmartHire AI can rebuild
+                and optimize your resume
+                according to recruiter requirements
+                and ATS expectations.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+        </div>
+
+    </div>
+
+    <div class="reconstruction-grid">
+
+        <!-- CURRENT RESUME -->
+
+        <div class="rebuild-box">
+
+            <h3>
+                Current Resume
+            </h3>
+
+            <div class="rebuild-score">
+
+                {{ ats_score }}%
+
+            </div>
+
+            <p>
+
+                Current ATS compatibility
+                based on uploaded resume
+                and job description.
+
+            </p>
+
+        </div>
+
+        <!-- OPTIMIZED -->
+
+        <div class="rebuild-box">
+
+            <h3>
+                AI Optimized Resume
+            </h3>
+
+            <div class="rebuild-score optimized">
+
+                90%
+
+            </div>
+
+            <p>
+
+                SmartHire AI will optimize
+                keywords,
+                recruiter visibility
+                and ATS structure.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- BUTTON -->
+
+    <div class="workspace-actions">
+
+    <button
+type="button"
+class="rebuild-btn"
+id="rebuildBtn">
+        <i class="fa-solid fa-rotate"></i>
+        Rebuild Resume
+    </button>
+
+    <a href="/download-resume-pdf">
+        <button id="pdfBtn">
+            Download PDF
+        </button>
+    </a>
+
+    <a href="/download-resume-docx">
+        <button id="docxBtn">
+            Download DOCX
+        </button>
+    </a>
+
+</div>
+    <div
+    id="optimizedResumeBox"
+    class="resume-box"
+    style="display:none; margin-top:20px;">
+
+        <h3>AI Optimized Resume</h3>
+
+        <div id="optimizedResumeContent"></div>
+
+        <br>
+
+</div>
+
+</section>
+
+<!-- DOWNLOAD -->
+
+<section class="card download-card">
+
+    <div>
+
+        <h2>
+            Export ATS Report
+            <div style="margin-top:20px;">
+    <a href="/download-resume-pdf" class="btn btn-primary">
+        Download Resume PDF
+    </a>
+
+    <a href="/download-resume-docx" class="btn btn-success">
+        Download Resume DOCX
+    </a>
+</div>
+        </h2>
+
+        <p class="workspace-subtitle">
+
+            Download your complete ATS report
+            and resume analysis summary.
+
+        </p>
+
+    </div>
+
+    <a href="/download-report">
+
+        <button>
+
+            <i class="fa-solid fa-download"></i>
+
+            Download Report
+
+        </button>
+
+    </a>
+
+</section>
+
+{% endif %}
+
+<!-- AI LOADING SCREEN -->
+
+<div
+class="ai-loading-overlay"
+id="aiLoadingOverlay">
+
+    <div class="ai-loading-box">
+
+        <div class="ai-loader"></div>
+
+        <h2>
+
+            SmartHire AI Processing
+
+        </h2>
+
+        <p>
+
+            Analyzing ATS compatibility,
+            recruiter intelligence,
+            resume quality
+            and skill matching...
+
+        </p>
+
+    </div>
+
+</div>
+
+<!-- SCRIPT -->
+
+<script>
+
+    const uploadInput =
+    document.getElementById("resume-upload");
+
+    const filePreview =
+    document.getElementById("file-preview");
+
+    const uploadTitle =
+    document.getElementById("upload-title");
+
+    const uploadSubtitle =
+    document.getElementById("upload-subtitle");
+
+    const dropzoneIcon =
+    document.getElementById("dropzone-icon");
+
+    uploadInput.addEventListener("change", function(){
+
+        if(this.files.length > 0){
+
+            const fileName =
+            this.files[0].name;
+
+            filePreview.innerHTML =
+            `<i class="fa-solid fa-file-pdf"></i> ${fileName}`;
+
+            uploadTitle.innerHTML =
+            "Resume Uploaded Successfully";
+
+            uploadSubtitle.innerHTML =
+            "Your file is ready for ATS AI analysis";
+
+            dropzoneIcon.innerHTML =
+            `<i class="fa-solid fa-circle-check"></i>`;
+
+            dropzoneIcon.style.background =
+            "linear-gradient(135deg,#64856d,#4f6957)";
+        }
+    });
+
+    const uploadForm =
+    document.getElementById("uploadForm");
+
+    const aiLoadingOverlay =
+    document.getElementById("aiLoadingOverlay");
+
+        if(uploadForm){
+
+    uploadForm.addEventListener("submit", () => {
+
+        aiLoadingOverlay.style.display = "flex";
+
+    });
+
+}
+
+</script>
+
+<script>
+
+const rebuildBtn =
+document.getElementById("rebuildBtn");
+
+if(rebuildBtn){
+
+    rebuildBtn.addEventListener("click", async () => {
+
+        try{
+
+            const response = await fetch(
+                "/rebuild-resume",
+                {
+                    method: "POST"
+                }
+            );
+
+            const data =
+            await response.json();
+
+            if(data.success){
+
+                document.getElementById(
+                    "optimizedResumeBox"
+                ).style.display = "block";
+
+                const resume =
+                typeof data.resume === "string"
+                ? JSON.parse(data.resume)
+                : data.resume;
+
+                let html = `
+                <h2>ATS Optimized Resume</h2>
+
+                <p>
+                <strong>Email:</strong>
+                ${resume.contact_information?.email || ""}
+                </p>
+
+                <p>
+                <strong>Phone:</strong>
+                ${resume.contact_information?.phone || ""}
+                </p>
+
+                <p>
+                <strong>LinkedIn:</strong>
+                ${resume.contact_information?.linkedin || ""}
+                </p>
+
+                <hr>
+
+                <h3>Professional Summary</h3>
+                <p>${resume.professional_summary || ""}</p>
+
+                <hr>
+
+                <h3>Skills</h3>
+                <ul>
+                ${(resume.skills || [])
+                .map(skill => `<li>${skill}</li>`)
+                .join("")}
+                </ul>
+
+                <hr>
+
+                <h3>Education</h3>
+
+                ${(resume.education || [])
+                .map(edu => `
+                <p>
+                <strong>${edu.degree || ""}</strong><br>
+                ${edu.institution || ""}<br>
+                ${edu.duration || ""}
+                </p>
+                `).join("")}
+
+                <hr>
+
+                <h3>Internships</h3>
+
+                ${(resume.internships || [])
+                .map(i => `
+                <p>
+                <strong>${i.title || ""}</strong><br>
+                ${i.organization || ""}<br>
+                ${i.description || ""}
+                </p>
+                `).join("")}
+
+                <hr>
+
+                <h3>Projects</h3>
+
+                ${(resume.projects || [])
+                .map(p => `
+                <p>
+                <strong>${p.title || ""}</strong><br>
+                ${p.description || ""}
+                </p>
+                `).join("")}
+                `;
+
+                document.getElementById(
+                    "optimizedResumeContent"
+                ).innerHTML = html;
+
+            }
+
+        }catch(error){
+
+            console.log(error);
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+{% endblock %}

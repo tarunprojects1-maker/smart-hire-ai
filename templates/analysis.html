@@ -1,0 +1,574 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="hero-section">
+
+    <div>
+
+        <h1>
+            AI Resume Analytics
+        </h1>
+
+        <p class="subtitle">
+
+            Track ATS performance,
+            recruiter compatibility,
+            resume optimization
+            and AI career intelligence.
+
+        </p>
+
+    </div>
+
+    <div class="hero-badge">
+
+        AI Analytics
+
+    </div>
+
+</section>
+
+<!-- ANALYTICS GRID -->
+
+<section class="analytics-grid">
+
+    <!-- CARD -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    Average ATS Score
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    {{ average_ats }}%
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div
+            class="progress-fill progress-one">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CARD -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    Total Resume Analyses
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    {{ total_analyses }}
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div
+            class="progress-fill progress-two">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CARD -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    Best ATS Score
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    {{ best_ats }}%
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-award"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div
+            class="progress-fill progress-three">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CARD -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    Resume Strength
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    Strong
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-shield"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div
+            class="progress-fill progress-four">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- RECRUITER CONFIDENCE -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Recruiter Confidence Meter
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                SmartHire AI predicts
+                recruiter shortlisting confidence
+                based on ATS compatibility,
+                resume quality
+                and technical matching.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-user-check"></i>
+
+        </div>
+
+    </div>
+
+    <div class="confidence-wrapper">
+
+        <div class="confidence-circle">
+
+            <div class="confidence-inner">
+
+                87%
+
+            </div>
+
+        </div>
+
+        <div class="confidence-details">
+
+            <h3>
+
+                High Recruiter Match
+
+            </h3>
+
+            <p>
+
+                Your resume demonstrates
+                strong ATS optimization,
+                technical relevance
+                and recruiter visibility.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- RESUME HEALTH STATUS -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Resume Health Status
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                SmartHire AI evaluates
+                ATS compatibility,
+                keyword optimization
+                and resume quality.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-home-grid">
+
+        <div class="home-card">
+
+            <h3>
+                ATS Compatibility
+            </h3>
+
+            <p>
+                GOOD
+            </p>
+
+        </div>
+
+        <div class="home-card">
+
+            <h3>
+                Keyword Optimization
+            </h3>
+
+            <p>
+                MEDIUM
+            </p>
+
+        </div>
+
+        <div class="home-card">
+
+            <h3>
+                Resume Visibility
+            </h3>
+
+            <p>
+                HIGH
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- RECRUITER STYLE FEEDBACK -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Recruiter Style Feedback
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                AI-generated simulated recruiter
+                evaluation based on resume
+                and JD comparison.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-user-tie"></i>
+
+        </div>
+
+    </div>
+
+    <div class="recent-grid">
+
+        <div class="recent-box">
+
+            ✔ Strong technical skills visibility
+
+        </div>
+
+        <div class="recent-box">
+
+            ✔ ATS-friendly formatting detected
+
+        </div>
+
+        <div class="recent-box">
+
+            ⚠ Add measurable achievements
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- RESUME IMPROVEMENT CHECKLIST -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Resume Improvement Checklist
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                SmartHire AI suggests
+                improvements based on
+                ATS and JD analysis.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-list-check"></i>
+
+        </div>
+
+    </div>
+
+    <div class="recent-grid">
+
+        <div class="recent-box">
+
+            ☐ Add GitHub Profile
+
+        </div>
+
+        <div class="recent-box">
+
+            ☐ Improve Project Descriptions
+
+        </div>
+
+        <div class="recent-box">
+
+            ☐ Add Technical Keywords
+
+        </div>
+
+        <div class="recent-box">
+
+            ☐ Add Certifications
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- RESUME RECRUITER READY -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Resume Recruiter Ready
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                Final recruiter readiness
+                evaluation based on
+                ATS and skill analysis.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+    </div>
+
+    <div class="confidence-wrapper">
+
+        <div class="confidence-circle">
+
+            <div class="confidence-inner">
+
+                READY
+
+            </div>
+
+        </div>
+
+        <div class="confidence-details">
+
+            <h3>
+
+                Recruiter Ready Resume
+
+            </h3>
+
+            <p>
+
+                Your resume demonstrates
+                strong ATS optimization
+                and recruiter compatibility.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- JD ALIGNMENT ANALYSIS -->
+
+<div class="analysis-card">
+
+    <h2>JD Alignment Analysis</h2>
+
+    <div class="analysis-grid">
+
+        <div class="analysis-box">
+
+            <h3>Strong Matching Skills</h3>
+
+            {% for skill in matched_skills[:5] %}
+
+               <span class="skill-tag matched">
+    {{ skill }}
+</span>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="analysis-box">
+
+            <h3>Missing JD Requirements</h3>
+
+            {% for skill in missing_skills[:5] %}
+
+                <span class="skill-tag missing">
+    {{ skill }}
+</span>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="analysis-box">
+
+            <h3>Resume Match Summary</h3>
+
+            <p>
+                Your resume matches
+                {{ overall_match }}%
+                of the JD requirements.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}

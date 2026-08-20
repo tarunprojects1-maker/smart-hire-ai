@@ -1,0 +1,417 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="hero-section">
+
+    <div>
+
+        <h1>
+            AI Skills Intelligence
+        </h1>
+
+        <p class="subtitle">
+
+            SmartHire AI analyzes your resume,
+            identifies missing skills,
+            tracks strengths
+            and generates personalized
+            recruiter-focused recommendations.
+
+        </p>
+
+    </div>
+
+    <div class="hero-badge">
+
+        Smart AI Skills
+
+    </div>
+
+</section>
+
+<!-- ATS SCORE -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                ATS Resume Score
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                SmartHire AI evaluates
+                your ATS compatibility
+                using resume quality,
+                recruiter keywords
+                and detected skills.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-chart-pie"></i>
+
+        </div>
+
+    </div>
+
+    <div class="ats-score-container">
+
+        <div class="ats-circle">
+
+            {{ ats_score }}%
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- LIVE SKILLS -->
+
+<section class="dashboard-home-grid">
+
+    <!-- DETECTED SKILLS -->
+
+    <div class="home-card">
+
+        <div class="home-icon">
+
+            <i class="fa-solid fa-star"></i>
+
+        </div>
+
+        <h3>
+            Detected Skills
+        </h3>
+
+        <p>
+
+            {{ top_skills }}
+
+        </p>
+
+    </div>
+
+    <!-- MISSING SKILLS -->
+
+    <div class="home-card">
+
+        <div class="home-icon">
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+        </div>
+
+        <h3>
+            Missing Skills
+        </h3>
+
+        <p>
+
+            {{ missing_skills }}
+
+        </p>
+
+    </div>
+
+    <!-- AI RECOMMENDATIONS -->
+
+    <div class="home-card">
+
+        <div class="home-icon">
+
+            <i class="fa-solid fa-lightbulb"></i>
+
+        </div>
+
+        <h3>
+            AI Recommendations
+        </h3>
+
+        <p>
+
+            {{ suggestions }}
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- JOB READINESS -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Job Readiness Score
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                SmartHire AI estimates your
+                readiness level for different
+                career domains based on
+                resume intelligence.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-briefcase"></i>
+
+        </div>
+
+    </div>
+
+    <div class="readiness-container">
+        {% for role in job_roles %}
+
+<div class="readiness-item">
+
+    <div class="readiness-label">
+
+        {{ role.role }}
+
+    </div>
+
+    <div class="readiness-bar">
+
+        <div
+        class="readiness-fill"
+        style="width:{{ role.score }}%;">
+
+           {{ role.score }}%
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+<!-- SKILL MATCH -->
+
+<section class="dashboard-home-grid">
+
+    <div class="home-card">
+
+        <div class="home-icon">
+
+            <i class="fa-solid fa-code"></i>
+
+        </div>
+
+        <h3>
+            Skill Match Percentage
+        </h3>
+
+        <div class="skills-comparison-container">
+
+            <!-- RESUME SKILLS -->
+
+            <div class="skills-box">
+
+                <h4>Resume Skills</h4>
+
+                <div class="skill-fill-box">
+
+                    {{ resume_skills }}
+
+                </div>
+
+            </div>
+
+            <!-- JD SKILLS -->
+
+            <div class="skills-box">
+
+                <h4>JD Skills</h4>
+
+                <div class="skill-fill-box">
+
+                    {{ jd_skills }}
+
+                </div>
+
+            </div>
+
+            <!-- MATCH PERCENTAGE -->
+
+            <div class="overall-match-box">
+
+                <h4>Resume vs JD Match</h4>
+
+                <div class="progress-line">
+
+                    <div
+                    class="progress-fill"
+                    style="width:{{ overall_match }}%;">
+
+                    </div>
+
+                </div>
+
+                <p class="match-percent">
+
+                    {{ overall_match }}% Match
+
+                </p>
+
+            </div>
+
+            <!-- MISSING SKILLS -->
+
+            <div class="skills-box">
+
+                <h4>Missing Skills</h4>
+
+                <div class="skill-fill-box missing-fill">
+
+                    {{ missing_skills }}        
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- EXTRA AI INSIGHTS -->
+
+<section class="dashboard-home-grid">
+
+    <!-- ATS KEYWORD COVERAGE -->
+
+    <div class="home-card">
+
+        <div class="home-icon">
+            <i class="fa-solid fa-key"></i>
+        </div>
+
+        <h3>ATS Keyword Coverage</h3>
+
+        <div class="ats-circle small-circle">
+            {{ matched_keywords }}%
+        </div>
+
+        <p>
+            Matched: {{ matched_keywords }}%
+        </p>
+
+        <p>
+            Missing: {{ missing_keywords }}%
+        </p>
+
+    </div>
+
+    <!-- PRIORITY SKILLS -->
+
+    <div class="home-card">
+
+        <div class="home-icon">
+            <i class="fa-solid fa-layer-group"></i>
+        </div>
+
+        <h3>Priority Skills To Learn</h3>
+
+        <div class="skill-tags">
+
+            {% for skill in priority_skills %}
+
+                <span class="missing-tag">
+
+                    {{ skill }}
+
+                </span>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <!-- STRONGEST AREA -->
+
+    <div class="home-card">
+
+        <div class="home-icon">
+            <i class="fa-solid fa-shield-heart"></i>
+        </div>
+
+        <h3>Strongest Area</h3>
+
+        <p>
+            {{ strongest_area }}
+        </p>
+
+    </div>
+
+    <!-- WEAKEST AREA -->
+
+    <div class="home-card">
+
+        <div class="home-icon">
+            <i class="fa-solid fa-bug"></i>
+        </div>
+
+        <h3>Weakest Area</h3>
+
+        <p>
+            {{ weakest_area }}
+        </p>
+
+    </div>
+
+    <!-- RECOMMENDED PROJECTS -->
+
+    <div class="home-card">
+
+        <div class="home-icon">
+            <i class="fa-solid fa-diagram-project"></i>
+        </div>
+
+        <h3>Recommended Projects</h3>
+
+        <ul>
+
+            {% for project in recommended_projects %}
+
+                <li>
+
+                    {{ project }}
+
+                </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+</section>
+
+{% endblock %}

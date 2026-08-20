@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>SmartHire AI</title>
+
+    <!-- ICONS -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- CSS -->
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body id="body">
+
+    <!-- APP LAYOUT -->
+
+    <div class="app-layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar"
+        id="sidebar">
+
+            <!-- LOGO -->
+
+            <div class="sidebar-top">
+
+                <div class="logo-area">
+
+                    <div class="logo-icon">
+                        AI
+                    </div>
+
+                    <div class="logo-text">
+                        SmartHire
+                    </div>
+
+                </div>
+
+                <!-- TOGGLE -->
+
+                <button
+                class="menu-toggle"
+                id="menu-toggle">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+            </div>
+
+            <!-- NAVIGATION -->
+
+            <nav class="sidebar-nav">
+
+                <a href="#dashboard"
+                class="nav-item active">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+                <a href="#career"
+                class="nav-item">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                    <span>Career Coach</span>
+
+                </a>
+
+                <a href="#analyzer"
+                class="nav-item">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    <span>ATS Analyzer</span>
+
+                </a>
+
+                <a href="#history"
+                class="nav-item">
+
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+
+                    <span>History</span>
+
+                </a>
+
+                <a href="#skills"
+                class="nav-item">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                    <span>Skills</span>
+
+                </a>
+
+                <a href="#analysis"
+                class="nav-item">
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                    <span>Analysis</span>
+
+                </a>
+
+            </nav>
+
+            <!-- BOTTOM -->
+
+            <div class="sidebar-bottom">
+
+                <!-- THEME -->
+
+                <button
+                id="theme-toggle"
+                class="theme-btn">
+
+                    <i class="fa-solid fa-moon"></i>
+
+                    <span>Theme</span>
+
+                </button>
+
+                <!-- USER -->
+
+                <div class="user-box">
+
+                    <div class="user-avatar">
+                        {{ username[0] }}
+                    </div>
+
+                    <div class="user-name">
+                        {{ username }}
+                    </div>
+
+                </div>
+
+                <!-- LOGOUT -->
+
+                <a href="/logout">
+
+                    <button class="logout-btn">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        <span>Logout</span>
+
+                    </button>
+
+                </a>
+
+            </div>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main-content">
+
+            <!-- HERO -->
+
+            <section class="hero-section">
+
+                <div>
+
+                    <h1>
+                        SmartHire AI
+                    </h1>
+
+                    <p class="subtitle">
+                        Premium AI Career Intelligence Platform
+                    </p>
+
+                </div>
+
+                <div class="hero-badge">
+                    AI Powered
+                </div>
+
+            </section>
+
+            <!-- CAREER COACH -->
+
+            <section
+            class="card"
+            id="career">
+
+                <h2>
+                    AI Career Coach
+                </h2>
+
+                <form
+                action="/career-chat"
+                method="POST">
+
+                    <textarea
+                    name="career_message"
+                    placeholder="Ask about internships, coding roadmap, interviews, AI careers..."
+                    required></textarea>
+
+                    <br><br>
+
+                    <button type="submit">
+                        Ask Career Coach
+                    </button>
+
+                </form>
+
+            </section>
+
+            <!-- CHAT RESPONSE -->
+
+            {% if chatbot_response %}
+
+            <section class="card">
+
+                <h2>
+                    AI Response
+                </h2>
+
+                <div class="ai-box">
+
+                    <pre>{{ chatbot_response }}</pre>
+
+                </div>
+
+            </section>
+
+            {% endif %}
+
+            <!-- ANALYZER -->
+
+            <section
+            class="card"
+            id="analyzer">
+
+                <h2>
+                    Resume ATS Analyzer
+                </h2>
+
+                <form
+                action="/upload"
+                method="POST"
+                enctype="multipart/form-data">
+
+                    <label class="label-title">
+                        Upload Resume
+                    </label>
+
+                    <input
+                    type="file"
+                    name="resume"
+                    required>
+
+                    <br><br>
+
+                    <label class="label-title">
+                        Job Description
+                    </label>
+
+                    <textarea
+                    name="job_description"
+                    placeholder="Paste complete job description..."
+                    required></textarea>
+
+                    <br><br>
+
+                    <button type="submit">
+                        Analyze Resume
+                    </button>
+
+                </form>
+
+            </section>
+
+            <!-- HISTORY -->
+
+            {% if history %}
+
+            <section
+            class="card"
+            id="history">
+
+                <h2>
+                    Resume Analysis History
+                </h2>
+
+                <div class="history-table">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Resume</th>
+
+                                <th>ATS</th>
+
+                                <th>Match</th>
+
+                                <th>Domain</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for item in history %}
+
+                            <tr>
+
+                                <td>{{ item.filename }}</td>
+
+                                <td>{{ item.ats_score }}%</td>
+
+                                <td>{{ item.match_percentage }}%</td>
+
+                                <td>{{ item.domain_match }}</td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            {% endif %}
+
+            {% if uploaded %}
+
+            <!-- DASHBOARD -->
+
+            <section
+            class="dashboard-main"
+            id="dashboard">
+
+                <!-- ATS -->
+
+                <div class="score-card">
+
+                    <h3>ATS Score</h3>
+
+                    <div class="circle-wrap">
+
+                        <div
+                        class="circle"
+                        style="--score: {{ ats_score }};">
+
+                            <div class="circle-value">
+                                {{ ats_score }}%
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- MATCH -->
+
+                <div class="score-card">
+
+                    <h3>Match</h3>
+
+                    <div class="circle-wrap">
+
+                        <div
+                        class="circle"
+                        style="--score: {{ match_percentage }};">
+
+                            <div class="circle-value">
+                                {{ match_percentage }}%
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- DOMAIN -->
+
+                <div class="score-card">
+
+                    <h3>Domain</h3>
+
+                    <div class="domain-value">
+                        {{ domain_match }}
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- DOWNLOAD -->
+
+            <section class="card">
+
+                <a href="/download-report">
+
+                    <button>
+                        Download ATS Report
+                    </button>
+
+                </a>
+
+            </section>
+
+            <!-- SKILLS -->
+
+            <section
+            class="skills-grid"
+            id="skills">
+
+                <!-- TOP -->
+
+                <div class="card">
+
+                    <h2>Top Skills</h2>
+
+                    <div class="skills-container">
+
+                        {% for skill in top_skills %}
+
+                        <div class="skill-badge">
+                            {{ skill }}
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                <!-- MISSING -->
+
+                <div class="card">
+
+                    <h2>Missing Skills</h2>
+
+                    <div class="skills-container">
+
+                        {% for skill in missing_skills %}
+
+                        <div class="missing-badge">
+                            {{ skill }}
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- QUESTIONS -->
+
+            <section class="card">
+
+                <h2>Interview Questions</h2>
+
+                <div class="question-grid">
+
+                    {% for question in interview_questions %}
+
+                    <div class="question-card">
+
+                        {{ question }}
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+            <!-- SUGGESTIONS -->
+
+            <section class="card">
+
+                <h2>Improvement Suggestions</h2>
+
+                <div class="suggestion-grid">
+
+                    {% for suggestion in suggestions %}
+
+                    <div class="suggestion-card">
+
+                        {{ suggestion }}
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+            <!-- RESUME -->
+
+            <section class="card">
+
+                <h2>Extracted Resume</h2>
+
+                <div class="resume-box">
+
+                    <pre>{{ resume_text }}</pre>
+
+                </div>
+
+            </section>
+
+            <!-- REWRITE -->
+
+            <section class="card">
+
+                <form
+                action="/rewrite-resume"
+                method="POST">
+
+                    <input
+                    type="hidden"
+                    name="resume_text"
+                    value="{{ resume_text }}">
+
+                    <input
+                    type="hidden"
+                    name="job_description"
+                    value="{{ job_description }}">
+
+                    <button type="submit">
+                        Generate Improved Resume
+                    </button>
+
+                </form>
+
+            </section>
+
+            <!-- IMPROVED -->
+
+            {% if improved_resume %}
+
+            <section class="card">
+
+                <h2>
+                    AI Improved Resume
+                </h2>
+
+                <div class="ai-box">
+
+                    <pre>{{ improved_resume }}</pre>
+
+                </div>
+
+            </section>
+
+            {% endif %}
+
+            <!-- ANALYSIS -->
+
+            <section
+            class="card"
+            id="analysis">
+
+                <h2>
+                    Detailed ATS Analysis
+                </h2>
+
+                <div class="ai-box">
+
+                    <pre>{{ ai_result }}</pre>
+
+                </div>
+
+            </section>
+
+            {% endif %}
+
+        </main>
+
+    </div>
+
+    <!-- SCRIPTS -->
+
+    <script>
+
+        // THEME
+
+        const toggleBtn =
+        document.getElementById("theme-toggle");
+
+        const body =
+        document.getElementById("body");
+
+        if(localStorage.getItem("theme") === "light"){
+
+            body.classList.add("light-mode");
+        }
+
+        toggleBtn.addEventListener("click", () => {
+
+            body.classList.toggle("light-mode");
+
+            if(body.classList.contains("light-mode")){
+
+                localStorage.setItem(
+                    "theme",
+                    "light"
+                );
+
+            }else{
+
+                localStorage.setItem(
+                    "theme",
+                    "dark"
+                );
+            }
+
+        });
+
+        // SIDEBAR
+
+        const sidebar =
+        document.getElementById("sidebar");
+
+        const menuToggle =
+        document.getElementById("menu-toggle");
+
+        menuToggle.addEventListener("click", () => {
+
+            sidebar.classList.toggle("collapsed");
+
+        });
+
+    </script>
+
+</body>
+
+</html>

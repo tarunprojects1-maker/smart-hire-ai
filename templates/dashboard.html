@@ -1,0 +1,578 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="hero-section">
+
+    <div>
+
+        <h1>
+            Welcome Back, {{ username }}
+        </h1>
+
+        <p class="subtitle">
+
+            SmartHire AI helps you with
+            ATS optimization,
+            AI career guidance,
+            interview preparation
+            and resume improvement.
+
+        </p>
+
+    </div>
+
+    <div class="hero-badge">
+
+        AI Powered Platform
+
+    </div>
+
+</section>
+
+<!-- ANALYTICS -->
+
+<section class="analytics-grid">
+
+    <!-- CARD -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    Total Analyses
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    {{ total_analyses }}
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div
+            class="progress-fill progress-one">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CARD -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    Average ATS Score
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    {{ average_ats }}%
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div
+            class="progress-fill progress-two">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CARD -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    AI Career Chats
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    {{ total_chats }}
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-robot"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div
+            class="progress-fill progress-three">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CARD -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-top">
+
+            <div>
+
+                <p class="analytics-label">
+
+                    Resume Quality
+
+                </p>
+
+                <h2 class="analytics-value">
+
+                    {{ resume_quality }}
+
+                </h2>
+
+            </div>
+
+            <div class="analytics-icon">
+
+                <i class="fa-solid fa-award"></i>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-progress">
+
+            <div
+            class="progress-fill progress-four">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- RECENT ACTIVITY -->
+
+<section class="card recent-activity-card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Recent ATS Activity
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                Your latest AI resume analysis
+                and recruiter matching result.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+        </div>
+
+    </div>
+
+    <div class="recent-grid">
+
+        {% if recent_analysis %}
+
+        <!-- BOX -->
+
+        <div class="recent-box">
+
+            <div class="recent-icon">
+
+                <i class="fa-solid fa-file-pdf"></i>
+
+            </div>
+
+            <h3>
+                Latest Resume
+            </h3>
+
+            <p>
+
+                {{ recent_analysis.filename }}
+
+            </p>
+
+        </div>
+
+        <!-- BOX -->
+
+        <div class="recent-box">
+
+            <div class="recent-icon">
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+            </div>
+
+            <h3>
+                ATS Score
+            </h3>
+
+            <p>
+
+                {{ recent_analysis.ats_score }}%
+
+            </p>
+
+        </div>
+
+        <!-- BOX -->
+
+        <div class="recent-box">
+
+            <div class="recent-icon">
+
+                <i class="fa-solid fa-user-check"></i>
+
+            </div>
+
+            <h3>
+                Match %
+            </h3>
+
+            <p>
+
+                {{ recent_analysis.match_percentage }}%
+
+            </p>
+
+        </div>
+
+        <!-- BOX -->
+
+        <div class="recent-box">
+
+            <div class="recent-icon">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+            </div>
+
+            <h3>
+                Domain Match
+            </h3>
+
+            <p>
+
+                {{ recent_analysis.domain_match }}
+
+            </p>
+
+        </div>
+
+        {% else %}
+
+        <p>
+            No recent analysis available.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+<!-- FEATURE GRID -->
+
+<section class="dashboard-home-grid">
+
+    <!-- CARD -->
+
+    <a
+    href="/career"
+    class="home-card">
+
+        <div class="home-icon">
+
+            <i class="fa-solid fa-robot"></i>
+
+        </div>
+
+        <h3>
+            AI Career Coach
+        </h3>
+
+        <p>
+
+            Get AI guidance for careers,
+            coding roadmap,
+            placements and internships.
+
+        </p>
+
+    </a>
+
+    <!-- CARD -->
+
+    <a
+    href="/ats"
+    class="home-card">
+
+        <div class="home-icon">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+        </div>
+
+        <h3>
+            ATS Resume Analyzer
+        </h3>
+
+        <p>
+
+            Analyze resumes using AI
+            and compare with job descriptions.
+
+        </p>
+
+    </a>
+
+    <!-- CARD -->
+
+    <a
+    href="/history"
+    class="home-card">
+
+        <div class="home-icon">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+        </div>
+
+        <h3>
+            Analysis History
+        </h3>
+
+        <p>
+
+            Track previous ATS reports
+            and resume performance history.
+
+        </p>
+
+    </a>
+
+</section>
+
+<!-- LIVE AI INSIGHTS -->
+
+<section class="card">
+
+    <div class="workspace-header">
+
+        <div>
+
+            <h2>
+                Live Resume Intelligence
+            </h2>
+
+            <p class="workspace-subtitle">
+
+                SmartHire AI continuously tracks
+                your latest resume performance,
+                recruiter visibility
+                and ATS optimization.
+
+            </p>
+
+        </div>
+
+        <div class="workspace-icon">
+
+            <i class="fa-solid fa-brain"></i>
+
+        </div>
+
+    </div>
+
+    <div class="insights-grid">
+
+        <!-- DOMAIN MATCH -->
+
+        <div class="insight-box">
+
+            <div class="insight-icon">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+            </div>
+
+            <h3>
+                Domain Match
+            </h3>
+
+            <p>
+
+                {{ recent_analysis.domain_match if recent_analysis else 'No analysis yet' }}
+
+            </p>
+
+        </div>
+
+        <!-- TOP SKILLS -->
+
+        <div class="insight-box">
+
+            <div class="insight-icon">
+
+                <i class="fa-solid fa-star"></i>
+
+            </div>
+
+            <h3>
+                Top Skills
+            </h3>
+
+            <p>
+
+                {{ recent_analysis.top_skills if recent_analysis else 'Upload resume first' }}
+
+            </p>
+
+        </div>
+
+        <!-- MISSING SKILLS -->
+
+        <div class="insight-box">
+
+            <div class="insight-icon">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+            <h3>
+                Missing Skills
+            </h3>
+
+            <p>
+
+                {{ recent_analysis.missing_skills if recent_analysis else 'No missing skills data' }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- OVERVIEW -->
+
+<section class="card">
+
+    <h2>
+        Platform Overview
+    </h2>
+
+    <div class="overview-grid">
+
+        <div class="overview-box">
+
+            <h3>
+                AI Powered ATS
+            </h3>
+
+            <p>
+
+                Smart ATS matching using
+                Groq LLM intelligence.
+
+            </p>
+
+        </div>
+
+        <div class="overview-box">
+
+            <h3>
+                Career Intelligence
+            </h3>
+
+            <p>
+
+                Personalized AI career support
+                and interview guidance.
+
+            </p>
+
+        </div>
+
+        <div class="overview-box">
+
+            <h3>
+                Resume Optimization
+            </h3>
+
+            <p>
+
+                Improve resume quality
+                with AI-enhanced suggestions.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

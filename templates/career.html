@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="hero-section">
+
+    <div>
+
+        <h1>
+            AI Career Coach
+        </h1>
+
+        <p class="subtitle">
+            Ask anything about internships, coding,
+            interviews, placements, AI careers and roadmap.
+        </p>
+
+    </div>
+
+    <div class="hero-badge">
+        Smart Career Guidance
+    </div>
+
+</section>
+
+<!-- CAREER CHAT -->
+
+<section class="card career-card">
+
+    <h2>
+        Ask SmartHire AI
+    </h2>
+
+    <form
+    action="/career-chat"
+    method="POST">
+
+        <textarea
+        name="career_message"
+        placeholder="Example: How do I become AI Engineer in 2026?"
+        required></textarea>
+
+        <br><br>
+
+        <button type="submit">
+
+            Ask Career Coach
+
+        </button>
+
+    </form>
+
+</section>
+
+<!-- RESPONSE -->
+
+{% if chatbot_response %}
+
+<section class="card">
+
+    <h2>
+        AI Response
+    </h2>
+
+    <div class="ai-box">
+
+        <pre>{{ chatbot_response }}</pre>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+{% endblock %}
